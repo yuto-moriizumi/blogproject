@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.enums import Choices
 
 # Create your models here.
 CATEGORY = (("bussiness", "ビジネス"),
@@ -8,6 +9,8 @@ CATEGORY = (("bussiness", "ビジネス"),
 class BlogModel(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-    post_date = models.DateField(auto_now_add=True)
-    category = models.CharField(max_length=50)
-    choices = CATEGORY
+    postdate = models.DateField(auto_now_add=True)
+    category = models.CharField(max_length=50, choices=CATEGORY)
+
+    def __str__(self):
+        return self.title
