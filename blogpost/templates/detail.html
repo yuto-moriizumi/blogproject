@@ -1,10 +1,14 @@
-{%extends "base.html" %} {% block header %} {% endblock header %}
-{% block
-content %}
+{% extends "base.html" %}
+{% block header %}
+{% endblock header %}
+{% block content %}
 <ul>
   <li>{{object.title}}</li>
   <li>{{object.content}}</li>
   <li>{{object.postdate}}</li>
   <li>{{object.category}}</li>
 </ul>
-{%endblock content %}
+<a href="{% url 'list' %}">一覧へ</a>
+<a href="{% url 'update' object.pk %}">編集する</a>
+<a href="{% url 'delete' object.pk %}">削除する</a>
+{% endblock content %}
