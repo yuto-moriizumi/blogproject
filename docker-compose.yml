@@ -1,0 +1,33 @@
+version: "3"
+services:
+  app:
+    image: python:3.9-buster
+    ports:
+      - "8000:80"
+    volumes:
+      - ./app:/usr/src
+    working_dir: "/usr/src"
+    command: sh -c "pip install --upgrade pip && pip install django && python manage.py runserver"
+  db:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: docker
+      TZ: "Asia/Tokyo"
+    volumes:
+      - ./db/data:/var/lib/mysql #データ永続化
+      # - ./db/sql:/docker-entrypoint-initdb.d #起動時sqlフォルダ内のsqlファイルを実行
+  phpmyadmin:
+    image: phpmyadmin #fpmやalpineタグは別途httpサーバが必要
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=docker
+    ports:
+      - 8080:80
+    volumes:
+      - "./phpmyadmin:/sessions"
+    depends_on:
+      - db
