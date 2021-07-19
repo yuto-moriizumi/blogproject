@@ -19,7 +19,7 @@ services:
       TZ: "Asia/Tokyo"
     volumes:
       - ./db/data:/var/lib/mysql #データ永続化
-      # - ./db/sql:/docker-entrypoint-initdb.d #起動時sqlフォルダ内のsqlファイルを実行
+      - ./db/sql:/docker-entrypoint-initdb.d #起動時sqlフォルダ内のsqlファイルを実行
   phpmyadmin:
     image: phpmyadmin #fpmやalpineタグは別途httpサーバが必要
     environment:
